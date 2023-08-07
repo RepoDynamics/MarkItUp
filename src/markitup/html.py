@@ -662,7 +662,7 @@ class DETAILS(Element):
         attrs["open"] = open
         if summary is not None:
             if not isinstance(summary, SUMMARY):
-                summary = SUMMARY(content=summary, content_indent=content_indent, tag_seperator=tag_seperator),
+                summary = SUMMARY(content=summary, content_indent=content_indent, tag_seperator=tag_seperator)
             content = [summary, BR(), content]
         super().__init__(
             tag=f"details",
