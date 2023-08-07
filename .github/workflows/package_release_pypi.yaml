@@ -1,0 +1,32 @@
+
+name: 'Package - Build'
+run-name: 'Package: Build from ${{github.ref}}'
+
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: 'Checkout repository from ${{github.ref}}'
+        uses: actions/checkout@v3
+
+      - name: 'Build sdist'
+        run: |
+          pipx run build --sdist --wheel --outdir dist/
+
+      - name: 'Upload package'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        # https://github.com/marketplace/actions/pypi-publish
+        with:
+          packages-dir: dist
+          verify-metadata: true
+          verbose: true
+          print-hash: true
+          skip-existing: false
