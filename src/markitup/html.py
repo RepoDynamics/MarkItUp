@@ -533,7 +533,7 @@ class UL(Element):
             content = [LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)]
         elif isinstance(content, Sequence):
             content = [
-                LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)
+                LI(content=li, tag_seperator=tag_seperator, content_indent=content_indent)
                 for li in content
             ]
         super().__init__(
@@ -578,7 +578,7 @@ class OL(Element):
             content = [LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)]
         elif isinstance(content, Sequence):
             content = [
-                LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)
+                LI(content=li, tag_seperator=tag_seperator, content_indent=content_indent)
                 for li in content
             ]
         super().__init__(
