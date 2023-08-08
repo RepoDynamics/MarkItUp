@@ -530,9 +530,12 @@ class UL(Element):
     ):
         attrs["type"] = type
         if isinstance(content, str):
-            content = [LI(content=content)]
+            content = [LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)]
         elif isinstance(content, Sequence):
-            content = [LI(content=li) for li in content]
+            content = [
+                LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)
+                for li in content
+            ]
         super().__init__(
             tag=f"ul",
             attrs=attrs,
@@ -572,9 +575,12 @@ class OL(Element):
         attrs["start"] = start
         attrs["reversed"] = reversed
         if isinstance(content, str):
-            content = [LI(content=content)]
+            content = [LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)]
         elif isinstance(content, Sequence):
-            content = [LI(content=li) for li in content]
+            content = [
+                LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)
+                for li in content
+            ]
         super().__init__(
             tag=f"ol",
             attrs=attrs,
