@@ -19,6 +19,14 @@ class ElementCollection:
         self.seperator = seperator
         return
 
+    def append(self, element):
+        self.elements.append(element)
+        return
+
+    def extend(self, elements):
+        self.elements.extend(elements)
+        return
+
     def __str__(self):
         if not self.elements:
             return ""
@@ -54,8 +62,8 @@ class Element:
         tag: str,
         attrs: Optional[dict] = None,
         content: Optional[list | ElementCollection] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
     ):
         self._tag = tag.lower()
         self.attrs = attrs or dict()
@@ -156,8 +164,8 @@ class H(Element):
         self,
         level: Literal[1, 2, 3, 4, 5, 6],
         content: Optional[Sequence] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -173,8 +181,8 @@ class H(Element):
 def h(
     level: Literal[1, 2, 3, 4, 5, 6],
     content: Optional[Sequence] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs
 ) -> H:
     return H(level=level, content=content, tag_seperator=tag_seperator, content_indent=content_indent, **attrs)
@@ -211,8 +219,8 @@ class SUMMARY(Element):
     def __init__(
         self,
         content: Optional[Sequence] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -227,8 +235,8 @@ class SUMMARY(Element):
 
 def summary(
     content: Optional[Sequence] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs
 ) -> SUMMARY:
     return SUMMARY(content=content, tag_seperator=tag_seperator, content_indent=content_indent, **attrs)
@@ -240,8 +248,8 @@ class DIV(Element):
     def __init__(
         self,
         content: Optional[list | ElementCollection] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -256,8 +264,8 @@ class DIV(Element):
 
 def div(
     content: Optional[list | ElementCollection] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs
 ) -> DIV:
     return DIV(content=content, tag_seperator=tag_seperator, content_indent=content_indent, **attrs)
@@ -269,8 +277,8 @@ class P(Element):
     def __init__(
         self,
         content: Optional[Sequence] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -349,8 +357,8 @@ class P(Element):
 
 def p(
     content: Optional[Sequence],
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs
 ) -> P:
     return P(content=content, tag_seperator=tag_seperator, content_indent=content_indent, **attrs)
@@ -363,8 +371,8 @@ class A(Element):
         self,
         href: HasStr,
         content: Optional[Sequence] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         """
@@ -389,8 +397,8 @@ class A(Element):
 def a(
     href: HasStr,
     content: Optional[Sequence] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs
 ) -> A:
     return A(href=href, content=content, tag_seperator=tag_seperator, content_indent=content_indent, **attrs)
@@ -403,8 +411,8 @@ class PICTURE(Element):
         self,
         img: IMG,
         sources: Sequence[SOURCE],
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -419,8 +427,8 @@ class PICTURE(Element):
 
 def picture(
     img: IMG, sources: Sequence[SOURCE],
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs
 ) -> PICTURE:
     return PICTURE(
@@ -434,8 +442,8 @@ class TABLE(Element):
     def __init__(
         self,
         content: Optional[Sequence] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -450,8 +458,8 @@ class TABLE(Element):
 
 def table(
     content: Optional[Sequence] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs,
 ) -> TABLE:
     return TABLE(
@@ -465,8 +473,8 @@ class TR(Element):
     def __init__(
         self,
         content: Optional[Sequence] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -481,8 +489,8 @@ class TR(Element):
 
 def tr(
     content: Optional[Sequence] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs,
 ) -> TR:
     return TR(content=content, tag_seperator=tag_seperator, content_indent=content_indent, **attrs)
@@ -494,8 +502,8 @@ class TD(Element):
     def __init__(
         self,
         content: Optional[Sequence] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         super().__init__(
@@ -510,8 +518,8 @@ class TD(Element):
 
 def td(
     content: Optional[Sequence] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs,
 ) -> TD:
     return TD(content=content, tag_seperator=tag_seperator, content_indent=content_indent, **attrs)
@@ -524,8 +532,8 @@ class UL(Element):
         self,
         content: Optional[Sequence] = None,
         type: Literal["disc", "circle", "square"] = "disc",
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         attrs["type"] = type
@@ -549,8 +557,8 @@ class UL(Element):
 def ul(
     content: Optional[Sequence] = None,
     type: Literal["disc", "circle", "square"] = "disc",
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs,
 ) -> UL:
     return UL(
@@ -567,8 +575,8 @@ class OL(Element):
         start: int = 1,
         type: Literal["1", "a", "A", "i", "I"] = "1",
         reversed: bool = False,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         attrs["type"] = type
@@ -596,8 +604,8 @@ def ol(
     start: int = 1,
     type: Literal["1", "a", "A", "i", "I"] = "1",
     reversed: bool = False,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs,
 ) -> OL:
     return OL(
@@ -619,8 +627,8 @@ class LI(Element):
         content: Optional[Sequence] = None,
         value: Optional[str] = None,
         type: Optional[Literal["1", "a", "A", "i", "I"]] = None,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         attrs["value"] = value
@@ -639,8 +647,8 @@ def li(
     content: Optional[Sequence] = None,
     value: Optional[str] = None,
     type: Optional[Literal["1", "a", "A", "i", "I"]] = None,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs,
 ) -> LI:
     return LI(
@@ -661,8 +669,8 @@ class DETAILS(Element):
         content: Optional[Sequence] = None,
         summary: Optional[str | Element] = None,
         open: bool = False,
-        tag_seperator: Optional[str] = "\n",
-        content_indent: Optional[str] = "\t",
+        tag_seperator: Optional[str] = "",
+        content_indent: Optional[str] = "",
         **attrs,
     ):
         attrs["open"] = open
@@ -684,8 +692,8 @@ def details(
     content: Optional[Sequence] = None,
     summary: Optional[str | Element] = None,
     open: bool = False,
-    tag_seperator: Optional[str] = "\n",
-    content_indent: Optional[str] = "\t",
+    tag_seperator: Optional[str] = "",
+    content_indent: Optional[str] = "",
     **attrs,
 ) -> DETAILS:
     return DETAILS(
