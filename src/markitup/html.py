@@ -541,8 +541,10 @@ class UL(Element):
             content = [LI(content=content, tag_seperator=tag_seperator, content_indent=content_indent)]
         elif isinstance(content, Sequence):
             content = [
-                LI(content=li, tag_seperator=tag_seperator, content_indent=content_indent)
-                for li in content
+                (
+                    LI(content=li, tag_seperator=tag_seperator, content_indent=content_indent)
+                    if isinstance(li, str) else li
+                ) for li in content
             ]
         super().__init__(
             tag=f"ul",
@@ -624,7 +626,7 @@ class LI(Element):
 
     def __init__(
         self,
-        content: Optional[Sequence] = None,
+        content: Optional[str | ElementCollection] = None,
         value: Optional[str] = None,
         type: Optional[Literal["1", "a", "A", "i", "I"]] = None,
         tag_seperator: Optional[str] = "",
